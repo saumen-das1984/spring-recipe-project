@@ -1,6 +1,5 @@
 package com.spring.recipe.domain;
 
-import java.math.BigDecimal;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,13 +17,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Data
-@EqualsAndHashCode(exclude = {"recipes"})
 public class Recipe {
 	
 	@Id
@@ -56,6 +51,11 @@ public class Recipe {
     	joinColumns = @JoinColumn(name = "recipe_id"),
     		inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories;
+    
+    public void setNotes(Notes notes) {
+        this.notes = notes;
+        notes.setRecipe(this);
+    }
     
     public Recipe addIngredient(Ingredient ingredient){
         ingredient.setRecipe(this);

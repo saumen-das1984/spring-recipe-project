@@ -10,8 +10,6 @@ import javax.persistence.ManyToMany;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @EqualsAndHashCode(exclude = {"recipes"})
