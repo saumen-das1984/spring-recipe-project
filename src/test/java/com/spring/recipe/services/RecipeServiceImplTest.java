@@ -43,7 +43,7 @@ public class RecipeServiceImplTest {
 	}
 
 	@Test
-	public void testGetRecipes() {
+	public void testGetRecipesTest() {
 		Set<Recipe> recipesData = buildRecipe();
 		when(recipeRepository.findAll()).thenReturn(recipesData);
         Set<Recipe> recipes = recipeService.getRecipes();
@@ -84,6 +84,19 @@ public class RecipeServiceImplTest {
         assertNotNull("Null recipe returned", commandById);
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
+    }
+	
+	@Test
+    public void testDeleteById() throws Exception {
+
+        //given
+        Long idToDelete = Long.valueOf(2L);
+
+        //when
+        recipeService.deleteById(idToDelete);
+
+        //then
+        verify(recipeRepository, times(1)).deleteById(anyLong());
     }
 	
 	private Set<Recipe> buildRecipe()
