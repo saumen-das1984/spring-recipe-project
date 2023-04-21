@@ -11,6 +11,7 @@ import com.spring.recipe.command.RecipeCommand;
 import com.spring.recipe.converters.RecipeCommandToRecipe;
 import com.spring.recipe.converters.RecipeToRecipeCommand;
 import com.spring.recipe.domain.Recipe;
+import com.spring.recipe.exceptions.NotFoundException;
 import com.spring.recipe.repositories.RecipeRepository;
 
 @Service
@@ -38,7 +39,7 @@ public class RecipeServiceImpl implements RecipeService {
 	public Recipe findById(Long l) {
 		Optional<Recipe> recipeOptional = recipeRepository.findById(l);
         if (!recipeOptional.isPresent()) {
-            throw new RuntimeException("Recipe Not Found!");
+            throw new NotFoundException("Recipe Not Found! For Id Value : "+l.toString());
         }
         return recipeOptional.get();
 	}

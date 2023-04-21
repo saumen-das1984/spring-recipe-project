@@ -47,13 +47,15 @@ public class ImageController {
 		
 		RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(id));
 		
-		byte[] byteArray = new byte[recipeCommand.getImage().length];
+		byte[] byteArray = new byte[null!=recipeCommand.getImage() ? recipeCommand.getImage().length : 0];
 		
 		int byteCount = 0;
-		for (Byte wrappedByte : recipeCommand.getImage()) {
-			byteArray[byteCount++] = wrappedByte;
+		if(null!=recipeCommand.getImage()) {
+			for (Byte wrappedByte : recipeCommand.getImage()) {
+				byteArray[byteCount++] = wrappedByte;
+			}
 		}
-		
+
 		response.setContentType("image/jpeg");
 		InputStream is = new ByteArrayInputStream(byteArray);
 		IOUtils.copy(is, response.getOutputStream());
